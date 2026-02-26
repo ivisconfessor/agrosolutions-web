@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\AgroSolutions.Propriedade.Dominio\AgroSolutions.Propriedade.Dominio.csproj" />
+    <ProjectReference Include="..\AgroSolutions.Propriedade.Infra\AgroSolutions.Propriedade.Infra.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

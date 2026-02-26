@@ -1,4 +1,4 @@
-﻿namespace AgroSolutions.Usuario.Tests;
+﻿namespace AgroSolutions.Propriedade.Tests;
 
 public class UnitTest1
 {
