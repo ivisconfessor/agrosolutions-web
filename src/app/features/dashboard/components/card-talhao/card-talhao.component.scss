@@ -1,0 +1,95 @@
+.card-talhao {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  height: 100%;
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 8px 8px 0 0;
+    border: none;
+    padding: 1.25rem;
+
+    .card-title {
+      margin: 0;
+      font-weight: 600;
+    }
+
+    .badge {
+      padding: 0.5rem 1rem;
+      font-weight: 500;
+    }
+  }
+
+  .card-body {
+    padding: 1.5rem;
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+
+      .label {
+        font-weight: 500;
+        color: #666;
+      }
+
+      .value {
+        color: #333;
+        font-weight: 600;
+      }
+    }
+
+    .measurements {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+
+      .measurement-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex: 1;
+        padding: 1rem;
+        background-color: #f8f9fa;
+        border-radius: 6px;
+
+        .icon {
+          font-size: 2rem;
+        }
+
+        .measurement-content {
+          .label {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 0.25rem;
+          }
+
+          .value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .card-talhao {
+    .card-body {
+      .measurements {
+        flex-direction: column;
+
+        .measurement-item {
+          flex: none;
+        }
+      }
+    }
+  }
+}

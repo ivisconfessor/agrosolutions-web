@@ -1,0 +1,58 @@
+<div class="login-container">
+  <div class="login-box">
+    <h1 class="title">AgroSolutions</h1>
+    <h2 class="subtitle">Dashboard de Monitoramento</h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <!-- Error Message -->
+      <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ error }}
+        <button type="button" class="btn-close" (click)="error = ''"></button>
+      </div>
+
+      <!-- Email Field -->
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input
+          type="email"
+          id="email"
+          class="form-control"
+          formControlName="email"
+          placeholder="seu@email.com"
+          [class.is-invalid]="submitted && f['email'].errors" />
+        <div *ngIf="submitted && f['email'].errors" class="invalid-feedback d-block">
+          <span *ngIf="f['email'].errors['required']">Email é obrigatório</span>
+          <span *ngIf="f['email'].errors['email']">Email inválido</span>
+        </div>
+      </div>
+
+      <!-- Password Field -->
+      <div class="mb-3">
+        <label for="senha" class="form-label">Senha</label>
+        <input
+          type="password"
+          id="senha"
+          class="form-control"
+          formControlName="senha"
+          placeholder="Sua senha"
+          [class.is-invalid]="submitted && f['senha'].errors" />
+        <div *ngIf="submitted && f['senha'].errors" class="invalid-feedback d-block">
+          <span *ngIf="f['senha'].errors['required']">Senha é obrigatória</span>
+          <span *ngIf="f['senha'].errors['minlength']">Senha deve ter pelo menos 6 caracteres</span>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="btn btn-primary w-100"
+        [disabled]="loading">
+        <span *ngIf="!loading">Entrar</span>
+        <span *ngIf="loading">
+          <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+          Carregando...
+        </span>
+      </button>
+    </form>
+  </div>
+</div>

@@ -1,134 +1,101 @@
-# AgroSolutions.Monitoracao
+# ngx-admin [<img src="https://i.imgur.com/oMcxwZ0.png" alt="Eva Design System" height="20px" />](https://eva.design?utm_campaign=eva_design%20-%20home%20-%20ngx_admin%20github%20readme&utm_source=ngx_admin&utm_medium=referral&utm_content=top_status_tile)
 
-Microserviço de **motor de alertas** do AgroSolutions. Processa leituras de sensores e gera alertas automáticos quando condições críticas são atingidas.
+[Live Demo](https://demo.akveo.com/ngx-admin/?utm_campaign=ngx_admin%20-%20demo%20-%20ngx_admin%20github%20readme&utm_source=ngx_admin&utm_medium=referral&utm_content=live_demo_link) | [Who uses ngx-admin?](https://github.com/akveo/ngx-admin/issues/1645) | [Documentation](https://akveo.github.io/ngx-admin?utm_campaign=ngx_admin%20-%20home%20-%20ngx_admin%20github%20readme&utm_source=ngx_admin&utm_medium=referral&utm_content=github_readme_documentation_link) | [Installation Guidelines](https://akveo.github.io/ngx-admin/docs/getting-started/what-is-ngxadmin?utm_campaign=ngx_admin%20-%20home%20-%20ngx_admin%20github%20readme&utm_source=ngx_admin&utm_medium=referral&utm_content=github_readme_installation_guidelines) | [Angular templates](https://www.akveo.com/templates?utm_campaign=services%20-%20github%20-%20templates&utm_source=ngx_admin&utm_medium=referral&utm_content=github%20readme%20top%20angular%20templates%20link)
 
-## Funcionalidades
+# Admin template based on Angular and <a href="https://github.com/akveo/nebular">Nebular</a>
 
-- **Motor de Alertas**: Aplica regras de monitoramento sobre dados de sensores
-- **Alerta de Seca**: Detecta quando umidade do solo fica abaixo de 30% por mais de 24 horas
-- **Consumer RabbitMQ**: Escuta fila `agrosolutions.sensores.leituras` de forma contínua
-- **Persistência MongoDB**: Armazena alertas gerados e estado de monitoramento
+<a target="_blank" href="https://demo.akveo.com/ngx-admin/pages/dashboard?theme=corporate&utm_campaign=ngx_admin%20-%20demo%20-%20ngx_admin%20github%20readme&utm_source=ngx_admin&utm_medium=referral&utm_content=hero_banner_corporate"><img src="https://i.imgur.com/mFdqvgG.png"/></a>
 
-## Estrutura
+## Repository state and engagement with the community
 
-- **Api**: Minimal APIs (GET/POST alertas) + Consumer hospedado _background service_
-- **Aplicacao**: `MotorAlertas` (lógica de regras) + `LeiturasQueueConsumerHostedService` (orquestração)
-- **Dominio**: Entidades `Alerta`, `EstadoMonitoramentoTalhao`, enumeradores
-- **Infra**: MongoDB (repositórios) + RabbitMQ (consumer)
+Repository is currently in a state of minimal maintenance. Our primary focus is on ensuring that the Angular version used in this project is kept up to date. Our capacity to engage in other aspects of repository management is currently limited.
 
-## MongoDB (Mongo Atlas)
+We are not actively reviewing or merging pull requests, responding to or resolving issues at this time. We appreciate the effort and contributions from the community and we understand that issues are crucial for the community. But now our current focus is solely on maintaining Angular.
 
-### Collections
+## Installation notes
 
-Crie no Mongo Atlas um database (ex.: `agrosolutions_monitoracao`) com as collections:
+To install ngx-admin you have to use NodeJS version 14.14+ because of [node-sass](https://github.com/sass/node-sass) version utilized in the application.
 
-| Collection | Uso |
-|---|---|
-| **alertas** | Um alerta por documento: talhão, tipo (ex.: seca), mensagem, datas. |
-| **monitoramento_talhoes** | Estado mínimo por talhão: "seco desde", última leitura, última umidade. |
+## Key features
 
-### Índices recomendados
+- The most popular and trusted Angular open source dashboard template is out there. Used by hundreds of thousands developers worldwide and Fortune 500 companies\*.
+- Over 40+ Angular Components and 60+ Usage Examples. Kick off your project and save money by using ngx-admin.
+- Already using ngx-admin and willing to switch to material theme? Material theme is backward-compatible. Check out the article describing how to do that.
+- ngx-admin material works perfectly with Angular Material and Nebular. Take the best from both!
 
-Na collection `alertas`:
-- **Campos**: `id_talhao` (asc), `criado_em` (desc)
-- **Nome**: `ix_alertas_id_talhao_criado`
+### What's included:
 
-Na collection `monitoramento_talhoes`:
-- **Campo**: `id_talhao` (id único do talhão)
+- Angular & Typescript
+- Bootstrap 4+ & SCSS
+- Responsive layout
+- RTL support
+- High resolution
+- Flexibly configurable themes with **hot-reload** (3 themes included)
+- Authentication module with multiple providers
+- 40+ Angular Components
+- 60+ Usage Examples
 
-## RabbitMQ
+## Material theme for ngx-admin
 
-- **Fila**: `agrosolutions.sensores.leituras` (mesmo do `AgroSolutions.Sensores`)
-- O consumer escuta continuamente e processa cada leitura com o motor de alertas
-- Ack manual: sucesso = ack, erro = nack com requeue
+Material admin theme is based on the most popular Angular dashboard template - [ngx-admin](https://akveo.github.io/ngx-admin?utm_campaign=ngx_admin%20-%20home%20-%20ngx_admin%20github%20readme&utm_source=ngx_admin_material&utm_medium=referral&utm_content=github_readme)
+To use material theme checkout `feat/material-theme` branch.
 
-## Configuração
+### Templates
 
-Em `appsettings.json` ou **User Secrets** (recomendado em dev):
+<a href="https://www.akveo.com/templates/fleet-management-dashboard?utm_campaign=services%20[…]x-admin%20&utm_medium=referral%20&utm_content=github_banner%20"><img src="https://i.imgur.com/Z8EwGfh.png"></a>
 
-```json
-{
-  "MongoDb": {
-    "ConnectionString": "<sua connection string do Mongo Atlas>",
-    "DatabaseName": "agrosolutions_monitoracao"
-  },
-  "RabbitMQ": {
-    "HostName": "localhost",
-    "UserName": "guest",
-    "Password": "guest",
-    "FilaLeituras": "agrosolutions.sensores.leituras"
-  }
-}
-```
+### With 6 stunning visual themes
 
-## Endpoints
+| <a target="_blank" href="https://demo.akveo.com/ngx-admin/pages/dashboard?theme=material-dark&utm_campaign=ngx_admin%20-%20demo%20-%20ngx_admin%20docs&utm_source=ngx_admin&utm_medium=referral&utm_content=ngx_admin_material_themes_material_dark"><img src="https://i.imgur.com/67YAlhf.png"/></a> | <a target="_blank" href="https://demo.akveo.com/ngx-admin/pages/dashboard?theme=material-light&utm_campaign=ngx_admin%20-%20demo%20-%20ngx_admin%20docs&utm_source=ngx_admin&utm_medium=referral&utm_content=ngx_admin_material_themes_material_light"><img src="https://i.imgur.com/aQzw0hD.png"/></a> |
+| --- | --- |
+|  Material Dark | Material Light |
 
-| Método | Rota | Descrição |
-|--------|------|-----------|
-| GET | /alertas/{id} | Obter alerta por id |
-| GET | /alertas?idTalhao={guid}&somenteAtivos={bool}&limite={int} | Listar alertas por talhão |
-| POST | /alertas/{id}/resolver | Resolver um alerta (marcar como resolvido) |
+| <a target="_blank" href="https://demo.akveo.com/ngx-admin/pages/dashboard?theme=dark&utm_campaign=ngx_admin%20-%20demo%20-%20ngx_admin%20github%20readme&utm_source=ngx_admin&utm_medium=referral&utm_content=github_readme_theme_dark"><img src="https://i.imgur.com/9UkTGgr.png"/></a> | <a target="_blank" href="https://demo.akveo.com/ngx-admin/pages/dashboard?theme=default&utm_campaign=ngx_admin%20-%20demo%20-%20ngx_admin%20github%20readme&utm_source=ngx_admin&utm_medium=referral&utm_content=github_readme_theme_default"><img src="https://i.imgur.com/Kn3xDKQ.png"/></a> |
+| --- | --- |
+|  Dark| Default |
 
-## Swagger
+| <a target="_blank" href="https://demo.akveo.com/ngx-admin/pages/dashboard?theme=cosmic&utm_campaign=ngx_admin%20-%20demo%20-%20ngx_admin%20github%20readme&utm_source=ngx_admin&utm_medium=referral&utm_content=github_readme_theme_cosmic"><img src="https://i.imgur.com/iJu2YDF.png"/></a> | <a target="_blank" href="https://demo.akveo.com/ngx-admin/pages/dashboard?theme=corporate&utm_campaign=ngx_admin%20-%20demo%20-%20ngx_admin%20github%20readme&utm_source=ngx_admin&utm_medium=referral&utm_content=github_readme_theme_corporate"><img src="https://i.imgur.com/GpUt6NW.png"/></a> |
+| --- | --- |
+| Cosmic  | Corporate |
 
-Acesse: `https://localhost:<port>/swagger`
+## Documentation
 
-## Motor de Alertas
+This template is using [Nebular](https://github.com/akveo/nebular) modules set, [here you can find documentation and other useful articles](https://akveo.github.io/nebular/docs/guides/install-based-on-starter-kit?utm_campaign=nebular%20-%20docs%20-%20ngx_admin%20github%20readme&utm_source=ngx_admin&utm_medium=referral&utm_content=documentation_useful_articles).
 
-### Regra: Alerta de Seca
+### Empty starter kit
 
-1. **Condição**: Umidade do solo **< 30%**
-2. **Duração mínima**: > 24 horas na mesma condição
-3. **Ação**: Gera novo alerta (se não existir ativo) ou aguarda resolução
-4. **Resolução**: Quando umidade sobe acima de 30%, alerta é marcado como resolvido
+Don't need all the pages and modules and just looking for an empty starter kit for your next project? Check out our [starter-kit branch](https://github.com/akveo/ngx-admin/tree/starter-kit).
 
-### Fluxo
+## BrowserStack
 
-```
-Leitura de Sensor → Verifica Estado do Talhão → Aplica Regra de Seca
-  → Atualiza Estado → Se alerta gerado, persiste em DB
-```
+This project runs its tests on multiple desktop and mobile browsers using [BrowserStack](http://www.browserstack.com).
 
-## Executar Localmente
+<img src="https://cloud.githubusercontent.com/assets/131406/22254249/534d889e-e254-11e6-8427-a759fb23b7bd.png" height="40" />
 
-### Pré-requisitos
-- .NET 8.0 SDK
-- MongoDB (local ou Atlas)
-- RabbitMQ (local ou gerenciado)
-- `AgroSolutions.Sensores` ativo (publicando leituras na fila)
+## UI Bakery
 
-### Iniciar
+Need a visual admin dashboard builder? Check out [UI Bakery](https://uibakery.io).
 
-```bash
-# Restaurar dependências
-dotnet restore
+<a href="https://uibakery.io"><img src="https://storage.uibakery.io/video-assets/landing/Logo/UIB%20400x150.png" height="80" /></a>
 
-# Executar (porta padrão 5094 em desenvolvimento)
-dotnet run --project src/AgroSolutions.Monitoracao.Api
-```
+## More from Akveo
 
-Swagger estará em: `https://localhost:<port>/swagger`
+- [Eva Icons](https://github.com/akveo/eva-icons) - 480+ beautiful Open Source icons
+- [Nebular](https://github.com/akveo/nebular) - Angular Components, Auth and Security
+- [Akveo templates](https://www.akveo.com/templates?utm_campaign=services%20-%20github%20-%20templates&utm_source=ngx_admin&utm_medium=referral&utm_content=ngx_admin%20github%20readme%20more%20from%20akveo%20link) - 10+ Ready-to-use apps templates to speed up your apps developments
 
-## Docker
+## How can I support developers?
 
-Imagem disponível em `./dockerfile`. E.g.:
+- Star our GitHub repo :star:
+- Create pull requests, submit bugs, suggest new features or documentation updates :wrench:
+- Follow us on [Twitter](https://twitter.com/akveo_inc) :feet:
+- Like our page on [Facebook](https://www.facebook.com/akveo/) :thumbsup:
 
-```bash
-docker build -t agrosolutions-monitoracao:latest .
-docker run -p 5094:8080 -e MongoDb__ConnectionString="<mongo-uri>" \
-  -e RabbitMQ__HostName="<rabbit-host>" agrosolutions-monitoracao:latest
-```
+## Looking for engineering services? 
 
-## Testes
+Visit [our homepage](https://www.akveo.com?utm_campaign=services%20-%20akveo%20website%20-%20ngx_admin%20github%20readme&utm_source=ngx_admin&utm_medium=referral&utm_content=looking_for_engineering_services_visit_homepage) or simply leave us a message to [contact@akveo.com](mailto:contact@akveo.com). We will be happy to work with you!
 
-```bash
-dotnet test tests/AgroSolutions.Monitoracao.Tests
-```
+## From Developers
 
-## Integração com Dashboard
-
-Os alertas são consultáveis via API REST e podem ser exibidos no dashboard se integrado ao `AgroSolutions.Usuario.API` ou UI frontend.
-
----
-
-**[HACKATON FIAP 2024]**
+Made with :heart: by [Akveo team](https://www.akveo.com?utm_campaign=services%20-%20akveo%20website%20-%20ngx_admin%20github%20readme&utm_source=ngx_admin&utm_medium=referral&utm_content=from_developers_made_by). Follow us on [Twitter](https://twitter.com/akveo_inc) to get the latest news first!
+We're always happy to receive your feedback!

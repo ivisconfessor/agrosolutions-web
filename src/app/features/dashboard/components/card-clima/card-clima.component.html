@@ -1,0 +1,55 @@
+<div class="card card-clima">
+  <div
+    class="card-header"
+    [style.background]="previsao ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : '#ddd'">
+    <h6 class="card-title">Previsão do Tempo</h6>
+    <span *ngIf="isFromFallback" class="badge badge-warning">Estimado</span>
+  </div>
+
+  <div class="card-body">
+    <div *ngIf="!previsao" class="text-center text-muted py-4">
+      <p>Carregando clima...</p>
+    </div>
+
+    <div *ngIf="previsao" class="clima-content">
+      <!-- Clima Atual -->
+      <div class="clima-atual">
+        <div class="temperatura-principal">
+          <span class="icon">{{ getWeatherIcon(previsao.atual.condicao) }}</span>
+          <div class="temp-info">
+            <div class="temp">{{ previsao.atual.temperatura }}°C</div>
+            <div class="condicao">{{ previsao.atual.condicao }}</div>
+          </div>
+        </div>
+
+        <div class="detalhes">
+          <div class="detalhe">
+            <span class="label">Sensação Térmica:</span>
+            <span class="valor">{{ previsao.atual.sensacaoTermica }}°C</span>
+          </div>
+          <div class="detalhe">
+            <span class="label">Umidade:</span>
+            <span class="valor">{{ previsao.atual.umidade }}%</span>
+          </div>
+        </div>
+      </div>
+
+      <hr />
+
+      <!-- Previsão 3 Dias -->
+      <div class="previsao-proximos-dias">
+        <h6 class="label-proximos">Próximos 3 Dias</h6>
+        <div class="dias-grid">
+          <div *ngFor="let dia of previsao.proximos5Dias" class="dia-card">
+            <div class="dia-data">{{ dia.data }}</div>
+            <div class="dia-icon">{{ getWeatherIcon(dia.condicao) }}</div>
+            <div class="dia-temps">
+              <span class="temp-max">{{ dia.tempMax }}°</span>
+              <span class="temp-min">{{ dia.tempMin }}°</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

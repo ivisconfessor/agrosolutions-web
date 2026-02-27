@@ -1,0 +1,43 @@
+<div class="card card-talhao">
+  <div class="card-header">
+    <h5 class="card-title">{{ talhao.nome }}</h5>
+    <span [ngClass]="'badge bg-' + status.cor">{{ status.label }}</span>
+  </div>
+
+  <div class="card-body">
+    <div class="info-row">
+      <span class="label">Cultura:</span>
+      <span class="value">{{ talhao.cultura }}</span>
+    </div>
+
+    <div class="info-row">
+      <span class="label">Área:</span>
+      <span class="value">{{ talhao.areaHectares }} hectares</span>
+    </div>
+
+    <hr />
+
+    <div class="measurements">
+      <div class="measurement-item">
+        <div class="icon">💧</div>
+        <div class="measurement-content">
+          <div class="label">Umidade do Solo</div>
+          <div class="value">{{ umidade }}%</div>
+        </div>
+      </div>
+
+      <div class="measurement-item">
+        <div class="icon">🌡️</div>
+        <div class="measurement-content">
+          <div class="label">Temperatura</div>
+          <div class="value">{{ temperatura }}°C</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-3 text-muted small">
+      <span *ngIf="leituraAtual">Última atualização: {{ dataAtualizacao }}</span>
+      <span *ngIf="!leituraAtual">Sem dados de sensores</span>
+    </div>
+  </div>
+</div>

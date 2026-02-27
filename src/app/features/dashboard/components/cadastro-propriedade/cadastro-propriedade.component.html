@@ -1,0 +1,111 @@
+<div class="cadastro-propriedade">
+  <div class="modal-header">
+    <h4 class="modal-title">Cadastrar Nova Propriedade</h4>
+    <button type="button" class="btn-close" (click)="fechar()"></button>
+  </div>
+
+  <div class="modal-body">
+    <div *ngIf="erro" class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{ erro }}
+      <button type="button" class="btn-close" (click)="erro = ''"></button>
+    </div>
+
+    <form [formGroup]="form">
+      <!-- Nome da Propriedade -->
+      <div class="mb-3">
+        <label for="nome" class="form-label">Nome da Propriedade *</label>
+        <input
+          type="text"
+          id="nome"
+          class="form-control"
+          formControlName="nome"
+          placeholder="Ex: Fazenda São João"
+          [class.is-invalid]="form.get('nome')?.hasError('required') && form.get('nome')?.touched" />
+        <div class="invalid-feedback" *ngIf="form.get('nome')?.hasError('required')">
+          Nome é obrigatório
+        </div>
+        <div class="invalid-feedback" *ngIf="form.get('nome')?.hasError('minlength')">
+          Nome deve ter no mínimo 3 caracteres
+        </div>
+      </div>
+
+      <!-- Descrição -->
+      <div class="mb-3">
+        <label for="descricao" class="form-label">Descrição</label>
+        <textarea
+          id="descricao"
+          class="form-control"
+          formControlName="descricao"
+          rows="3"
+          placeholder="Descrição da propriedade"></textarea>
+      </div>
+
+      <!-- Talhões -->
+      <div class="mb-3">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <label class="form-label mb-0"><strong>Talhões *</strong></label>
+          <button type="button" class="btn btn-sm btn-outline-success" (click)="addTalhao()">
+            + Adicionar Talhão
+          </button>
+        </div>
+
+        <div class="talhoes-container">
+          <div *ngFor="let talhao of talhoesList; let i = index" class="talhao-form mb-3 p-3 border rounded bg-light">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h6 class="mb-0">Talhão {{ i + 1 }}</h6>
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-danger"
+                (click)="removeTalhao(i)"
+                [disabled]="talhoesList.length === 1">
+                Remover
+              </button>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <label class="form-label">Nome do Talhão *</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="talhao.nome"
+                  [ngModelOptions]="{ standalone: true }"
+                  placeholder="Ex: Talhão A" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Cultura *</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="talhao.cultura"
+                  [ngModelOptions]="{ standalone: true }"
+                  placeholder="Ex: Milho, Soja" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Área (hectares) *</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  [(ngModel)]="talhao.areaHectares"
+                  [ngModelOptions]="{ standalone: true }"
+                  placeholder="0"
+                  step="0.1"
+                  min="0" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="fechar()">Cancelar</button>
+    <button type="button" class="btn btn-success" (click)="onSubmit()" [disabled]="loading">
+      <span *ngIf="!loading">Cadastrar</span>
+      <span *ngIf="loading">
+        <span class="spinner-border spinner-border-sm me-2"></span>Cadastrando...
+      </span>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,151 @@
+.card-clima {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  height: 100%;
+
+  .card-header {
+    color: white;
+    border-radius: 8px 8px 0 0;
+    border: none;
+    padding: 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .card-title {
+      margin: 0;
+      font-weight: 600;
+    }
+  }
+
+  .card-body {
+    padding: 1.5rem;
+  }
+
+  .clima-content {
+    .clima-atual {
+      .temperatura-principal {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+
+        .icon {
+          font-size: 3rem;
+        }
+
+        .temp-info {
+          .temp {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #333;
+          }
+
+          .condicao {
+            font-size: 0.95rem;
+            color: #666;
+          }
+        }
+      }
+
+      .detalhes {
+        background-color: #f8f9fa;
+        padding: 1rem;
+        border-radius: 6px;
+
+        .detalhe {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 0.5rem;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+
+          .label {
+            color: #666;
+            font-weight: 500;
+          }
+
+          .valor {
+            color: #333;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+
+    hr {
+      margin: 1.5rem 0;
+    }
+
+    .previsao-proximos-dias {
+      .label-proximos {
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: #333;
+      }
+
+      .dias-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+
+        .dia-card {
+          background-color: #f8f9fa;
+          padding: 0.75rem;
+          border-radius: 6px;
+          text-align: center;
+
+          .dia-data {
+            font-size: 0.75rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+          }
+
+          .dia-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+
+          .dia-temps {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+
+            .temp-max {
+              color: #d63031;
+              font-weight: bold;
+            }
+
+            .temp-min {
+              color: #0984e3;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.badge-warning {
+  background-color: #ffc107;
+  color: #333;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  margin-left: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .card-clima {
+    .previsao-proximos-dias {
+      .dias-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  }
+}

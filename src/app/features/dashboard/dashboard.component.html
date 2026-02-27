@@ -1,0 +1,95 @@
+<div class="dashboard-container">
+  <!-- Header -->
+  <div class="dashboard-header">
+    <div class="header-content">
+      <h1>Dashboard de Monitoramento</h1>
+      <p *ngIf="propriedade" class="property-name">{{ propriedade.nome }} <span *ngIf="talhoesComDados.length > 0">({{ talhoesComDados.length }} {{ talhoesComDados.length === 1 ? 'talhão' : 'talhões' }})</span></p>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-outline-primary" (click)="recarregar()" [disabled]="loading">
+        <span *ngIf="!loading">Atualizar</span>
+        <span *ngIf="loading">
+          <span class="spinner-border spinner-border-sm me-2" role="status"></span>Carregando...
+        </span>
+      </button>
+      <div class="user-menu">
+        <span class="user-name" *ngIf="usuarioNome">{{ usuarioNome }}</span>
+        <button class="btn btn-outline-danger btn-sm" (click)="logout()">Sair</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="erro" class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ erro }}
+    <button type="button" class="btn-close" (click)="erro = ''"></button>
+  </div>
+
+  <!-- Tabs Navigation -->
+  <div class="tabs-navigation mb-4">
+    <ul ngbNav #nav="ngbNav" [(activeId)]="talhaoSelecionadoIndex" class="nav-tabs">
+      <!-- Abas dos Talhões -->
+      <li *ngFor="let dados of talhoesComDados; let i = index" [ngbNavItem]="i + 1">
+        <a ngbNavLink>
+          <i class="icon-talhao"></i> {{ dados.talhao.nome }}
+        </a>
+        <ng-template ngbNavContent>
+          <!-- Loading Indicator -->
+          <div *ngIf="loading" class="text-center my-5">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Carregando...</span>
+            </div>
+          </div>
+
+          <!-- Conteúdo do Talhão Selecionado -->
+          <div *ngIf="!loading && talhaoSelecionado" class="dashboard-content">
+            <!-- Row 1: Cards de Status e Clima -->
+            <div class="row mb-4">
+              <!-- Cards de Talhão -->
+              <div class="col-md-8">
+                <app-card-talhao 
+                  [talhao]="talhaoSelecionado.talhao" 
+                  [leituraAtual]="talhaoSelecionado.leituras[talhaoSelecionado.leituras.length - 1]" 
+                  [alertas]="talhaoSelecionado.alertas">
+                </app-card-talhao>
+              </div>
+
+              <!-- Card Clima -->
+              <div class="col-md-4">
+                <app-card-clima [previsao]="clima" [isFromFallback]="climaDoFallback"></app-card-clima>
+              </div>
+            </div>
+
+            <!-- Row 2: Gráfico de Sensores -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <app-grafico-sensores [leituras]="talhaoSelecionado.leituras"></app-grafico-sensores>
+              </div>
+            </div>
+
+            <!-- Row 3: Lista de Alertas -->
+            <div class="row">
+              <div class="col-12">
+                <app-lista-alertas [alertas]="talhaoSelecionado.alertas" (resolverAlerta)="resolverAlerta($event)"></app-lista-alertas>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+
+      <!-- Aba de Propriedades -->
+      <li [ngbNavItem]="1000">
+        <a ngbNavLink>
+          <i class="icon-property"></i> Minhas Propriedades
+        </a>
+        <ng-template ngbNavContent>
+          <div class="propriedades-tab-content">
+            <app-painel-propriedades></app-painel-propriedades>
+          </div>
+        </ng-template>
+      </li>
+    </ul>
+
+    <div [ngbNavOutlet]="nav" class="mt-4"></div>
+  </div>
+</div>

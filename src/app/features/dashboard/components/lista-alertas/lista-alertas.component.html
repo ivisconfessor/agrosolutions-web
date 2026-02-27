@@ -1,0 +1,49 @@
+<div class="card lista-alertas-card">
+  <div class="card-header">
+    <h6 class="card-title">Alertas</h6>
+  </div>
+
+  <div class="card-body">
+    <div *ngIf="alertas.length === 0" class="text-center text-muted py-5">
+      <p>✓ Nenhum alerta ativo. Talhão em situação normal!</p>
+    </div>
+
+    <div *ngIf="alertas.length > 0" class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead>
+          <tr>
+            <th>Tipo</th>
+            <th>Mensagem</th>
+            <th>Data</th>
+            <th class="text-end">Ação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let alerta of alertas" [class.loading]="resolvendo === alerta.id">
+            <td>
+              <span [ngClass]="'badge bg-' + getTipoBadgeClass(alerta.tipo)">
+                {{ alerta.tipo }}
+              </span>
+            </td>
+            <td>{{ alerta.mensagem }}</td>
+            <td class="text-muted">
+              <small>{{ formatarData(alerta.criadoEm) }}</small>
+            </td>
+            <td class="text-end">
+              <button
+                class="btn btn-sm btn-outline-success"
+                (click)="onResolverAlerta(alerta.id)"
+                [disabled]="resolvendo === alerta.id">
+                <span *ngIf="resolvendo !== alerta.id">Resolver</span>
+                <span *ngIf="resolvendo === alerta.id">
+                  <span class="spinner-border spinner-border-sm me-1"></span>
+                  Resolvendo...
+                </span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
