@@ -16,8 +16,19 @@ interface StatusTalhao {
 })
 export class CardTalhaoComponent {
   @Input() talhao!: Talhao;
-  @Input() leituraAtual: LeituraSensor | undefined;
+  @Input() leituras: LeituraSensor[] = [];
   @Input() alertas: Alerta[] = [];
+
+  get ultimaLeitura(): LeituraSensor | undefined {
+    if (!this.leituras || this.leituras.length === 0) {
+      return undefined;
+    }
+    return this.leituras.reduce((ultima, leitura) => {
+      const ultimaData = new Date(ultima.dataLeitura).getTime();
+      const leituraData = new Date(leitura.dataLeitura).getTime();
+      return leituraData > ultimaData ? leitura : ultima;
+    });
+  }
 
   get status(): StatusTalhao {
     if (!this.alertas || this.alertas.length === 0) {
@@ -36,18 +47,18 @@ export class CardTalhaoComponent {
   }
 
   get umidade(): number {
-    return this.leituraAtual?.umidadeSolo ?? 0;
+    return this.ultimaLeitura?.umidadeSolo ?? 0;
   }
 
   get temperatura(): number {
-    return this.leituraAtual?.temperatura ?? 0;
+    return this.ultimaLeitura?.temperatura ?? 0;
   }
 
   get dataAtualizacao(): string {
-    if (!this.leituraAtual) {
+    if (!this.ultimaLeitura) {
       return 'Sem dados';
     }
-    const date = new Date(this.leituraAtual.dataLeitura);
+    const date = new Date(this.ultimaLeitura.dataLeitura);
     return date.toLocaleDateString('pt-BR') + ' ' + date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
   }
 }

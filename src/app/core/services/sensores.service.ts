@@ -19,10 +19,7 @@ export class SensoresService {
     limite: number = 100,
   ): Observable<LeituraSensor[]> {
     const params = new HttpParams()
-      .set('idTalhao', idTalhao)
-      .set('de', dataInicio)
-      .set('ate', dataFim)
-      .set('limite', limite.toString());
+      .set('idTalhao', idTalhao);
 
     return this.http.get<LeituraSensor[]>(`${this.apiUrl}/leituras`, { params });
   }
